@@ -1,6 +1,16 @@
-# InferaDB Protocol Buffers
+<div align="center">
+    <p><a href="https://inferadb.com"><img src=".github/inferadb.png" width="100" /></a></p>
+    <h1>InferaDB Protocol Buffers</h1>
+    <p>
+        <a href="https://crates.io/crates/inferadb"><img src="https://img.shields.io/crates/v/inferadb.svg" /></a>
+        <a href="https://docs.rs/inferadb"><img src="https://docs.rs/inferadb/badge.svg" /></a>
+        <a href="https://codecov.io/github/inferadb/rust"><img src="https://codecov.io/github/inferadb/rust/branch/main/graph/badge.svg?token=HBlxbXsvny" /></a>
+        <a href="./LICENSE"><img src="https://img.shields.io/crates/l/inferadb.svg"></a>
+    </p>
+    <p>gRPC protocol buffer definitions for InferaDB APIs.</p>
+</div>
 
-gRPC protocol buffer definitions for InferaDB APIs.
+<br />
 
 ## Structure
 
