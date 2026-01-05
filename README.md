@@ -4,7 +4,8 @@
     <p>gRPC protocol buffer definitions for InferaDB APIs.</p>
 </div>
 
-<br />
+> [!IMPORTANT]
+> Under active development. Not production-ready.
 
 ## Structure
 
