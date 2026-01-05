@@ -15,7 +15,7 @@ breaking:
 
 lint:
   use:
-    - DEFAULT
+    - STANDARD
     - COMMENTS
   except:
     # We use inferadb.<domain>.v1 pattern without version suffix

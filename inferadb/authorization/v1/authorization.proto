@@ -12,10 +12,10 @@ service AuthorizationService {
   rpc Expand(ExpandRequest) returns (stream ExpandResponse);
 
   // Write relationships to the store
-  rpc WriteRelationships(stream WriteRequest) returns (WriteResponse);
+  rpc WriteRelationships(stream WriteRelationshipsRequest) returns (WriteRelationshipsResponse);
 
   // Delete relationships from the store
-  rpc DeleteRelationships(stream DeleteRequest) returns (DeleteResponse);
+  rpc DeleteRelationships(stream DeleteRelationshipsRequest) returns (DeleteRelationshipsResponse);
 
   // Health check
   rpc Health(HealthRequest) returns (HealthResponse);
@@ -69,10 +69,13 @@ message EvaluateResponse {
   optional DecisionTrace trace = 4;
 }
 
-// Decision enum
+// Decision enum representing the authorization outcome
 enum Decision {
+  // Default value, should not be used
   DECISION_UNSPECIFIED = 0;
+  // Permission is granted
   DECISION_ALLOW = 1;
+  // Permission is denied
   DECISION_DENY = 2;
 }
 
@@ -106,40 +109,65 @@ message EvaluationNode {
   repeated EvaluationNode children = 3;
 }
 
-// Node type in evaluation
+// Node type in evaluation tree representing different permission check strategies
 message NodeType {
+  // The specific type of evaluation node
   oneof type {
+    // Direct relationship lookup
     DirectCheck direct_check = 1;
+    // Computed userset reference
     ComputedUserset computed_userset = 2;
+    // Related object userset traversal
     RelatedObjectUserset related_object_userset = 3;
+    // Union of multiple permission paths (OR)
     Union union = 4;
+    // Intersection of multiple permission paths (AND)
     Intersection intersection = 5;
+    // Exclusion of permission paths (BUT NOT)
     Exclusion exclusion = 6;
+    // WebAssembly module evaluation
     WasmModule wasm_module = 7;
   }
 }
 
+// Direct relationship check between subject and resource
 message DirectCheck {
+  // The resource being checked
   string resource = 1;
+  // The relation being checked
   string relation = 2;
+  // The subject being checked
   string subject = 3;
 }
 
+// Computed userset that references another relation
 message ComputedUserset {
+  // The relation to compute
   string relation = 1;
+  // The relationship path
   string relationship = 2;
 }
 
+// Userset that traverses through a related object
 message RelatedObjectUserset {
+  // The relationship to traverse
   string relationship = 1;
+  // The computed relation on the related object
   string computed = 2;
 }
 
+// Union operator combining multiple permission paths with OR logic
 message Union {}
+
+// Intersection operator combining multiple permission paths with AND logic
 message Intersection {}
+
+// Exclusion operator for BUT NOT logic in permission paths
 message Exclusion {}
 
+// WebAssembly module for custom authorization logic
 message WasmModule {
+  // Name of the WASM module to execute
   string module_name = 1;
 }
 
@@ -154,6 +182,7 @@ message ExpandRequest {
 
 // Expand response (one user at a time)
 message ExpandResponse {
+  // The response payload, either a user or a summary
   oneof payload {
     // A single user in the expanded set
     string user = 1;
@@ -179,46 +208,67 @@ message UsersetTree {
   repeated UsersetTree children = 2;
 }
 
-// Userset node type
+// Userset node type representing different userset expressions
 message UsersetNodeType {
+  // The specific type of userset node
   oneof type {
+    // Direct userset reference
     This this = 1;
+    // Computed userset reference
     ComputedUsersetRef computed_userset = 2;
+    // Related object userset reference
     RelatedObjectUsersetRef related_object_userset = 3;
+    // Union of usersets
     UnionNode union = 4;
+    // Intersection of usersets
     IntersectionNode intersection = 5;
+    // Exclusion of usersets
     ExclusionNode exclusion = 6;
+    // Leaf node containing users
     Leaf leaf = 7;
   }
 }
 
+// Self-reference in userset tree (the direct members)
 message This {}
 
+// Reference to a computed userset
 message ComputedUsersetRef {
+  // The relation to compute
   string relation = 1;
 }
 
+// Reference to a userset on a related object
 message RelatedObjectUsersetRef {
+  // The relationship to traverse
   string relationship = 1;
+  // The computed relation on the related object
   string computed = 2;
 }
 
+// Union node in userset tree
 message UnionNode {}
+
+// Intersection node in userset tree
 message IntersectionNode {}
+
+// Exclusion node in userset tree
 message ExclusionNode {}
 
+// Leaf node containing actual user identifiers
 message Leaf {
+  // List of user identifiers
   repeated string users = 1;
 }
 
-// Write request
-message WriteRequest {
+// Request to write relationships to the store
+message WriteRelationshipsRequest {
   // Relationships to write
   repeated Relationship relationships = 1;
 }
 
-// Write response
-message WriteResponse {
+// Response after writing relationships
+message WriteRelationshipsResponse {
   // Revision token
   string revision = 1;
 
@@ -240,8 +290,8 @@ message DeleteFilter {
   optional string subject = 3;
 }
 
-// Delete request
-message DeleteRequest {
+// Request to delete relationships from the store
+message DeleteRelationshipsRequest {
   // Optional filter for bulk deletion
   // If provided, all relationships matching the filter will be deleted
   optional DeleteFilter filter = 1;
@@ -256,8 +306,8 @@ message DeleteRequest {
   optional uint32 limit = 3;
 }
 
-// Delete response
-message DeleteResponse {
+// Response after deleting relationships
+message DeleteRelationshipsResponse {
   // Revision token
   string revision = 1;
 
@@ -411,11 +461,14 @@ message WatchResponse {
   string timestamp = 4;
 }
 
-// Type of relationship change
+// Type of relationship change operation
 enum ChangeOperation {
+  // Default value, should not be used
   CHANGE_OPERATION_UNSPECIFIED = 0;
-  CHANGE_OPERATION_CREATE = 1; // Relationship was created
-  CHANGE_OPERATION_DELETE = 2; // Relationship was deleted
+  // A new relationship was created
+  CHANGE_OPERATION_CREATE = 1;
+  // An existing relationship was deleted
+  CHANGE_OPERATION_DELETE = 2;
 }
 
 // Simulate request - test authorization with ephemeral relationships
