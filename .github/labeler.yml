@@ -1,0 +1,37 @@
+# Labeler configuration for InferaDB Protocol Buffers
+# https://github.com/actions/labeler
+
+# Authorization API changes
+area/authorization:
+  - changed-files:
+      - any-glob-to-any-file: "inferadb/authorization/**/*.proto"
+
+# Management API changes
+area/management:
+  - changed-files:
+      - any-glob-to-any-file: "inferadb/management/**/*.proto"
+
+# Any proto file changes
+area/proto:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.proto"
+
+# Configuration changes
+area/config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "buf.yaml"
+          - "buf.gen.yaml"
+          - "buf.work.yaml"
+
+# CI/CD changes
+area/ci:
+  - changed-files:
+      - any-glob-to-any-file: ".github/**"
+
+# Documentation changes
+area/docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "LICENSE"
