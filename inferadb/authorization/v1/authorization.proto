@@ -414,8 +414,8 @@ message WatchResponse {
 // Type of relationship change
 enum ChangeOperation {
   CHANGE_OPERATION_UNSPECIFIED = 0;
-  CHANGE_OPERATION_CREATE = 1;  // Relationship was created
-  CHANGE_OPERATION_DELETE = 2;  // Relationship was deleted
+  CHANGE_OPERATION_CREATE = 1; // Relationship was created
+  CHANGE_OPERATION_DELETE = 2; // Relationship was deleted
 }
 
 // Simulate request - test authorization with ephemeral relationships
