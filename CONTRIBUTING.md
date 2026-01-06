@@ -1,93 +1,59 @@
-# Contributing to InferaDB Protocol Buffers
+# Contributing to InferaDB
 
-Thank you for your interest in contributing to InferaDB's protocol buffer definitions.
+Thank you for your interest in contributing to InferaDB! We welcome contributions from the community and are grateful for any help you can provide.
 
-## Before You Start
+## Code of Conduct
 
-Proto changes affect multiple downstream repositories:
-- **inferadb/engine** - Authorization engine (Rust)
-- **inferadb/rust** - Rust SDK client library
+This project and everyone participating in it is governed by the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [open@inferadb.com](mailto:open@inferadb.com).
 
-Please ensure any changes are backward compatible or coordinate with dependent teams.
+## How to Contribute
 
-## Development Setup
+### Reporting Issues
 
-### Prerequisites
+- **Bug Reports**: Search existing issues first to avoid duplicates. Include version information, steps to reproduce, expected vs actual behavior, and relevant logs.
+- **Feature Requests**: Describe the use case, proposed solution, and alternatives considered.
+- **Security Issues**: Do **not** open public issues for security vulnerabilities. Instead, email [security@inferadb.com](mailto:security@inferadb.com).
 
-- [Buf CLI](https://buf.build/docs/installation) (recommended)
-- Or [protoc](https://grpc.io/docs/protoc-installation/) compiler
+### Pull Requests
 
-### Validation
+1. **Fork the repository** and create your branch from `main`
+2. **Follow the development workflow** documented in the repository's README
+3. **Write clear commit messages** following [Conventional Commits](https://www.conventionalcommits.org/):
+   - `feat:` New features
+   - `fix:` Bug fixes
+   - `docs:` Documentation changes
+   - `test:` Test additions or improvements
+   - `refactor:` Code refactoring
+   - `chore:` Maintenance tasks
+4. **Ensure all tests pass** before submitting
+5. **Update documentation** if your changes affect public APIs or user-facing behavior
+6. **Submit a pull request** with a clear description of your changes
 
-```bash
-# Using buf (recommended)
-buf lint
-buf format --diff
-buf breaking --against "https://github.com/inferadb/proto.git#branch=main"
+### Development Setup
 
-# Using protoc
-protoc --proto_path=. inferadb/**/*.proto --descriptor_set_out=/dev/null
-```
+Each repository has its own development setup and workflow. Please refer to:
 
-## Style Guide
+- **[DEVELOPMENT.md](./DEVELOPMENT.md)** for repository-specific development and contribution guidance
+- **README.md** for general project information and quick start instructions
 
-### Naming Conventions
+These documents cover prerequisites, dependencies, build commands, code style guidelines, and repository-specific requirements.
 
-- **Packages**: `inferadb.<domain>.v1` (e.g., `inferadb.authorization.v1`)
-- **Services**: PascalCase with `Service` suffix (e.g., `AuthorizationService`)
-- **RPCs**: PascalCase verbs (e.g., `Evaluate`, `WriteRelationships`)
-- **Messages**: PascalCase nouns (e.g., `EvaluateRequest`, `Relationship`)
-- **Fields**: snake_case (e.g., `resource_type`, `subject_id`)
-- **Enums**: SCREAMING_SNAKE_CASE with type prefix (e.g., `DECISION_ALLOW`)
-- **Enum zero value**: Must end with `_UNSPECIFIED`
+## Review Process
 
-### Documentation
+1. **Automated Checks**: CI will run tests, linters, and formatters
+2. **Peer Review**: At least one maintainer will review your contribution
+3. **Feedback**: Address any review comments
+4. **Approval**: Once approved, a maintainer will merge your contribution
 
-All public APIs must have comments:
+## License
 
-```protobuf
-// Evaluate if a subject has permission on a resource.
-// Returns a decision with optional trace information.
-rpc Evaluate(stream EvaluateRequest) returns (stream EvaluateResponse);
-
-// Subject identifier (e.g., "user:alice", "group:engineers").
-string subject = 1;
-```
-
-### Versioning
-
-- Use `v1`, `v2`, etc. in package paths for major versions
-- Breaking changes require a new major version
-- Deprecate fields with `[deprecated = true]` before removal
-
-## Pull Request Process
-
-1. **Create a feature branch** from `main`
-2. **Make your changes** following the style guide
-3. **Run validation** locally with `buf lint` and `buf format`
-4. **Open a PR** - CI will automatically:
-   - Lint proto files
-   - Check formatting
-   - Detect breaking changes
-   - Validate compilation
-5. **Address review feedback** from `@inferadb/engineers`
-6. **Merge** after approval
-
-## Breaking Changes
-
-Breaking changes are detected automatically by CI. If your PR contains breaking changes:
-
-1. Ensure the change is intentional and necessary
-2. Update `CHANGELOG.md` with migration guidance
-3. Notify dependent repository maintainers
-4. Get explicit approval from reviewers
-
-Examples of breaking changes:
-- Removing or renaming fields/messages/RPCs
-- Changing field numbers
-- Changing field types
-- Changing RPC signatures
+By contributing to InferaDB, you agree that your contributions will be licensed under the same license as the repository you are contributing to. See the LICENSE file in each repository for details.
 
 ## Questions?
 
-Open an issue or reach out to the engineering team.
+If you have questions or need help:
+
+- Open a [Discussion](https://github.com/inferadb/inferadb/discussions) on GitHub
+- Email us at [open@inferadb.com](mailto:open@inferadb.com)
+
+Thank you for helping make InferaDB better!
