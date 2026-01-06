@@ -42,3 +42,12 @@ protoc --proto_path=. \
   --go-grpc_out=. --go-grpc_opt=paths=source_relative \
   inferadb/authorization/v1/authorization.proto
 ```
+
+## License
+
+Licensed under either of:
+
+- [Apache License, Version 2.0](LICENSE-APACHE)
+- [MIT License](LICENSE-MIT)
+
+at your option.
