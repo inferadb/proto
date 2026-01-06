@@ -42,13 +42,14 @@ We follow [coordinated vulnerability disclosure](https://en.wikipedia.org/wiki/C
 
 Security issues we're interested in include:
 
-- Protocol buffer definition issues that could lead to security vulnerabilities
-- API design flaws with security implications
+- Test fixtures that could expose security vulnerabilities
+- Insecure test patterns that might be copied
+- Credential exposure in test configurations
 
 ## Out of Scope
 
-- Issues in generated code (report to the code generator project)
-- Vulnerabilities in protobuf compilers
+- Vulnerabilities in test dependencies
+- Issues that only affect test environments
 
 ## Security Updates
 
