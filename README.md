@@ -49,7 +49,7 @@ protoc --proto_path=. \
 
 ## Community
 
-Join our [Discord](https://discord.gg/inferadb) for questions, discussions, and contributions.
+Join us on [Discord](https://discord.gg/inferadb) for questions, discussions, and contributions.
 
 ## License
 
