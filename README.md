@@ -5,7 +5,7 @@
         <a href="https://discord.gg/inferadb"><img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord" /></a>
         <a href="#license"><img src="https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg" alt="License" /></a>
     </p>
-    <p>gRPC protocol buffer definitions for InferaDB APIs.</p>
+    <p>gRPC definitions for InferaDB APIs.</p>
 </div>
 
 > [!IMPORTANT]
@@ -25,7 +25,7 @@ inferadb/
 
 ## Package Naming
 
-Packages follow the pattern `inferadb.<domain>.v1`:
+Package pattern: `inferadb.<domain>.v1`
 
 - `inferadb.authorization.v1` - Authorization service (checks, relationships, watch)
 - `inferadb.management.v1` - Management service (orgs, vaults, schemas, teams)
@@ -49,13 +49,8 @@ protoc --proto_path=. \
 
 ## Community
 
-Join us on [Discord](https://discord.gg/inferadb) to discuss InferaDB, get help with your projects, and connect with other developers. Whether you have questions, want to share what you're building, or are interested in contributing, we'd love to have you!
+Join our [Discord](https://discord.gg/inferadb) for questions, discussions, and contributions.
 
 ## License
 
-Licensed under either of:
-
-- [Apache License, Version 2.0](LICENSE-APACHE)
-- [MIT License](LICENSE-MIT)
-
-at your option.
+Dual-licensed under [MIT](LICENSE-MIT) or [Apache 2.0](LICENSE-APACHE).
